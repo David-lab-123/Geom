@@ -24,6 +24,7 @@ public class Application implements Consumer<Event> {
         window.setEventListener(this);
         // делаем окно видимым
         window.setVisible(true);
+        window.setTitle("Java 2D");
     }
 
     /**
@@ -41,4 +42,5 @@ public class Application implements Consumer<Event> {
             window.close();
         }
     }
+
 }
