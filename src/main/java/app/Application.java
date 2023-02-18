@@ -1,5 +1,6 @@
 package app;
 
+import controls.Label;
 import io.github.humbleui.jwm.*;
 import io.github.humbleui.jwm.skija.EventFrameSkija;
 import io.github.humbleui.skija.Canvas;
@@ -13,6 +14,7 @@ import java.io.File;
 import java.util.function.Consumer;
 
 import static app.Colors.APP_BACKGROUND_COLOR;
+import static app.Colors.PANEL_BACKGROUND_COLOR;
 
 /**
  * Класс окна приложения
@@ -26,10 +28,20 @@ public class Application implements Consumer<Event> {
      * отступы панелей
      */
     private static final int PANEL_PADDING = 5;
+    /**
+     * Первый заголовок
+     */
+    private final Label label;
+
 
     /**
      * Конструктор окна приложения
      */
+    /**
+     *
+     * радиус скругления элементов
+     */
+    public static final int C_RAD_IN_PX = 4;
     public Application() {
         // создаём окно
         window = App.makeWindow();
@@ -42,6 +54,9 @@ public class Application implements Consumer<Event> {
         // задаём его положение
         window.setWindowPosition(100, 100);
         // задаём иконку
+
+        label = new Label(window, true, PANEL_BACKGROUND_COLOR, PANEL_PADDING, "Привет, мир!");
+
 
         switch (Platform.CURRENT) {
             case WINDOWS -> window.setIcon(new File("src/main/resources/windows.ico"));
@@ -71,6 +86,13 @@ public class Application implements Consumer<Event> {
 
         // делаем окно видимым
         window.setVisible(true);
+        /**
+         * радиус скругления элементов
+         */
+        /**
+         * отступы панелей
+         */
+
     }
 
     /**
@@ -121,5 +143,10 @@ public class Application implements Consumer<Event> {
 
         // восстанавливаем состояние канваса
         canvas.restore();
+
+        // рисуем заголовок в точке [100,100] с шириной и выостой 200
+        label.paint(canvas, new CoordinateSystem2i(100, 100, 200, 200));
+
     }
+
 }
