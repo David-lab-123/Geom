@@ -15,6 +15,8 @@ import static app.Fonts.FONT12;
  */
 public class Label extends Panel {
     private static final int LABEL_TEXT_COLOR = 0 ;
+    private final boolean centered;
+    private final boolean vcentered;
     /**
      * Текст заголовка
      */
@@ -29,17 +31,15 @@ public class Label extends Panel {
      * @param padding         отступы
      * @param text            текст
      */
-    public Label(Window window, boolean drawBG, int backgroundColor, int padding, String text) {
-        super(window, drawBG, backgroundColor, padding);
+    public Label(Window window, boolean drawBG, int backgroundColor, int padding,
+                 int gridWidth, int gridHeight, int gridX, int gridY, int colspan, int rowspan,
+                 String text, boolean centered, boolean vcentered) {
+        super(window, drawBG, backgroundColor, padding, gridWidth, gridHeight,
+                gridX, gridY, colspan, rowspan);
         this.text = text;
+        this.centered = centered;
+        this.vcentered = vcentered;
     }
-
-    /**
-     * Метод рисованияв конкретной реализации
-     *
-     * @param canvas   область рисования
-     * @param windowCS СК окна
-     */
     @Override
     public void paintImpl(Canvas canvas, CoordinateSystem2i windowCS) {
         // сохраняем область рисования

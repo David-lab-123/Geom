@@ -4,11 +4,8 @@ import controls.Label;
 import io.github.humbleui.jwm.*;
 import io.github.humbleui.jwm.skija.EventFrameSkija;
 import io.github.humbleui.skija.Canvas;
-import io.github.humbleui.skija.Paint;
-import io.github.humbleui.skija.RRect;
 import io.github.humbleui.skija.Surface;
 import misc.CoordinateSystem2i;
-import misc.Misc;
 
 import java.io.File;
 import java.util.function.Consumer;
@@ -29,22 +26,43 @@ public class Application implements Consumer<Event> {
      */
     private static final int PANEL_PADDING = 5;
     /**
+     * радиус скругления элементов
+     */
+    public static final int C_RAD_IN_PX = 4;
+    /**
      * Первый заголовок
      */
     private final Label label;
+    /**
+     * Первый заголовок
+     */
+    private final Label label2;
+    /**
+     * Первый заголовок
+     */
+    private final Label label3;
 
 
     /**
      * Конструктор окна приложения
      */
-    /**
-     *
-     * радиус скругления элементов
-     */
-    public static final int C_RAD_IN_PX = 4;
     public Application() {
         // создаём окно
         window = App.makeWindow();
+
+        // создаём первый заголовок
+        label = new Label(window, true, PANEL_BACKGROUND_COLOR, PANEL_PADDING,
+                4, 4, 1, 1, 1, 1, "Привет, мир!", true, true);
+
+        // создаём второй заголовок
+        label2 = new Label(window, true, PANEL_BACKGROUND_COLOR, PANEL_PADDING,
+                4, 4, 0, 3, 1, 1, "Второй заголовок", true, true);
+
+        // создаём третий заголовок
+        label3 = new Label(window, true, PANEL_BACKGROUND_COLOR, PANEL_PADDING,
+                4, 4, 2, 0, 1, 1, "Это тоже заголовок", true, true);
+
+
         // задаём обработчиком событий текущий объект
         window.setEventListener(this);
         // задаём заголовок
@@ -54,9 +72,6 @@ public class Application implements Consumer<Event> {
         // задаём его положение
         window.setWindowPosition(100, 100);
         // задаём иконку
-
-        label = new Label(window, true, PANEL_BACKGROUND_COLOR, PANEL_PADDING, "Привет, мир!");
-
 
         switch (Platform.CURRENT) {
             case WINDOWS -> window.setIcon(new File("src/main/resources/windows.ico"));
@@ -86,13 +101,6 @@ public class Application implements Consumer<Event> {
 
         // делаем окно видимым
         window.setVisible(true);
-        /**
-         * радиус скругления элементов
-         */
-        /**
-         * отступы панелей
-         */
-
     }
 
     /**
@@ -125,28 +133,13 @@ public class Application implements Consumer<Event> {
         canvas.save();
         // очищаем канвас
         canvas.clear(APP_BACKGROUND_COLOR);
-
+        // рисуем заголовок
+        label.paint(canvas, windowCS);
+        // рисуем второй заголовок
+        label2.paint(canvas, windowCS);
+        // рисуем третий заголовок
+        label3.paint(canvas, windowCS);
         // восстанавливаем состояние канваса
         canvas.restore();
-        // координаты левого верхнего края окна
-        int rX = windowCS.getSize().x / 3;
-        int rY = windowCS.getSize().y / 3;
-        // ширина и высота
-        int rWidth =  windowCS.getSize().x  / 3;
-        int rHeight = windowCS.getSize().y  / 3;
-        // создаём кисть
-        Paint paint = new Paint();
-        // задаём цвет рисования
-        paint.setColor(Misc.getColor(100, 255, 255, 255));
-        // рисуем квадрат
-        canvas.drawRRect(RRect.makeXYWH(rX, rY, rWidth, rHeight, 4), paint);
-
-        // восстанавливаем состояние канваса
-        canvas.restore();
-
-        // рисуем заголовок в точке [100,100] с шириной и выостой 200
-        label.paint(canvas, new CoordinateSystem2i(100, 100, 200, 200));
-
     }
-
 }
