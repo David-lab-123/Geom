@@ -6,15 +6,16 @@ import io.github.humbleui.skija.Canvas;
 import io.github.humbleui.skija.Paint;
 import io.github.humbleui.skija.TextLine;
 import misc.CoordinateSystem2i;
+import panels.GridPanel;
 import panels.Panel;
 
+import static app.Colors.LABEL_TEXT_COLOR;
 import static app.Fonts.FONT12;
 
 /**
  * Заголовок
  */
-public class Label extends Panel {
-    private static final int LABEL_TEXT_COLOR = 0 ;
+public class Label extends GridPanel {
     private final boolean centered;
     private final boolean vcentered;
     /**
@@ -40,6 +41,7 @@ public class Label extends Panel {
         this.centered = centered;
         this.vcentered = vcentered;
     }
+
     @Override
     public void paintImpl(Canvas canvas, CoordinateSystem2i windowCS) {
         // сохраняем область рисования
@@ -48,8 +50,14 @@ public class Label extends Panel {
         try (TextLine line = TextLine.make(text, FONT12)) {
             // получаем высоту текста
             int capHeight = (int) FONT12.getMetrics().getCapHeight();
+            // если нужно центрировать по горизонтали
+            if (centered)
+                canvas.translate((windowCS.getSize().x - line.getWidth()) / 2.0f, 0);
+            if (vcentered)
+                canvas.translate(0, (windowCS.getSize().y - capHeight) / 2.0f);
             // рисуем текст
             try (Paint fg = new Paint().setColor(LABEL_TEXT_COLOR)) {
+                System.out.println("label paint "+text);
                 canvas.drawTextLine(line, 0, capHeight, fg);
             }
         }
