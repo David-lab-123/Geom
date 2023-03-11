@@ -90,6 +90,7 @@ public class CoordinateSystem2d {
         return coords.x >= min.x && coords.y >= min.y && coords.x <= max.x && coords.y <= max.y;
     }
 
+
     /**
      * Проверить, попадают ли координаты в границы СК
      *
