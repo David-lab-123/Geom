@@ -59,7 +59,22 @@ public class PanelRendering extends GridPanel {
         }
         task = new Task(cs, points);
 
+
     }
+    /**
+     * Сохранить файл
+     */
+    public static void save() {
+        PanelLog.info("save");
+    }
+
+    /**
+     * Загрузить файл
+     */
+    public static void load() {
+        PanelLog.info("load");
+    }
+
     /**
      * Обработчик событий
      * при перегрузке обязателен вызов реализации предка
