@@ -118,7 +118,24 @@ public class Task {
         // Добавляем в лог запись информации
         PanelLog.info("точка " + newPoint + " добавлена в " + newPoint.getSetName());
     }
+    /**
+     * Решить задачу
+     */
+    public void solve() {
+        PanelLog.warning("Вызван метод solve()\n Пока что решения нет");
+    }
+    /**
+     * Отмена решения задачи
+     */
+    public void cancel() {
 
+    }
+    /**
+     * Очистить задачу
+     */
+    public void clear() {
+        points.clear();
+    }
     /**
      * Клик мыши по пространству задачи
      *
