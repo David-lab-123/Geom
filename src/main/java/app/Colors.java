@@ -17,6 +17,10 @@ public class Colors {
     /**
      * Цвет текста заголовка
      */
+    /**
+     * Цвет сетки
+     */
+    public static final int TASK_GRID_COLOR = Misc.getColor(64, 255, 255, 255);
     public static final int LABEL_TEXT_COLOR = Misc.getColor(64, 255, 255, 255);
     /**
      * цвет подложки панелей
